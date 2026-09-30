@@ -1,70 +1,66 @@
 import React from 'react';
 import Link from 'next/link';
+import { Badge } from '@/app/components/ui/badge';
+import { Todo } from '@/types/todo';
 
 type TaskDetailCardProps = {
-  todo: any;
+  todo: Todo;
 };
 
 export default function TaskDetailCard({ todo }: TaskDetailCardProps) {
   return (
-    <main className="min-h-screen bg-gray-100 p-8 flex justify-center items-start">
-      <div className="w-full max-w-xl bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
-        
-        {/* Header: Judul & Tombol Kembali */}
-        <div className="flex items-center justify-between border-b pb-4">
-          <h1 className="text-xl font-bold text-gray-800">Detail Tugas</h1>
+    <main className="min-h-screen p-6 md:p-10 bg-white text-dark-70">
+      <div className="max-w-2xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
+        <header className="mb-6 border-b border-gray-100 pb-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-dark-130">Detail Tugas</h1>
           <Link
             href="/"
-            className="bg-gray-200 hover:bg-gray-300 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-md transition"
+            className="text-xs font-semibold bg-gray-20 hover:bg-gray-30 text-dark-70 border border-gray-200 px-3.5 py-2 rounded-lg transition shadow-xs"
           >
-            Kembali ke Daftar
+            ← Kembali ke Daftar
           </Link>
-        </div>
+        </header>
 
-        {/* ID Tugas */}
-        <div>
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">ID TUGAS</p>
-          <p className="text-sm font-semibold text-gray-700 mt-1">#{todo?.id}</p>
-        </div>
-
-        {/* Judul Tugas */}
-        <div>
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">JUDUL TUGAS</p>
-          <h2 className="text-base font-bold text-gray-900 mt-1">
-            {todo?.title || todo?.name || 'Tanpa Judul'}
-          </h2>
-        </div>
-
-        {/* Deskripsi */}
-        <div>
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">DESKRIPSI</p>
-          <div className="bg-gray-50 border border-gray-100 rounded-lg p-4 text-xs text-gray-600 leading-relaxed">
-            {todo?.description || '-'}
-          </div>
-        </div>
-
-        {/* Status */}
-        <div>
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">STATUS</p>
-          <span
-            className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${
-              todo?.completed
-                ? 'bg-green-100 text-green-600'
-                : 'bg-yellow-100 text-yellow-600'
-            }`}
-          >
-            {todo?.completed ? '✓ Selesai' : 'Belum Selesai'}
-          </span>
-        </div>
-
-        {/* Tanggal Dibuat */}
-        {todo?.createdAt && (
+        <div className="space-y-4">
           <div>
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">TANGGAL DIBUAT</p>
-            <p className="text-xs text-gray-600 mt-1">{todo.createdAt}</p>
+            <label className="text-xs font-semibold text-muted uppercase tracking-wider">
+              ID Tugas
+            </label>
+            <div className="mt-1">
+              <Badge variant="purple" size="default">
+                #{todo.id}
+              </Badge>
+            </div>
           </div>
-        )}
 
+          <div>
+            <label className="text-xs font-semibold text-muted uppercase tracking-wider">
+              Judul Tugas
+            </label>
+            <h2 className="text-xl font-bold text-dark-130 mt-0.5">{todo.title}</h2>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-muted uppercase tracking-wider">
+              Status
+            </label>
+            <div className="mt-1">
+              <Badge
+                variant={todo.completed ? 'green' : 'yellow'}
+                size="sm"
+              >
+                {todo.completed ? '✓ Selesai' : '⏳ Belum Selesai'}
+              </Badge>
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-muted uppercase tracking-wider">
+              Tanggal Dibuat
+            </label>
+            <p className="text-muted text-sm mt-1">{todo.createdAt}</p>
+          </div>
+        </div>
       </div>
     </main>
   );
